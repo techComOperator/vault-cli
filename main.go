@@ -34,15 +34,6 @@ var (
 	format           string
 )
 
-type VaultLock struct {
-	Expiry      string `json:"expiry"`
-	Env         string `json:"env"`
-	LeaseId     string `json:"lease_id"`
-	ServiceType string `json:"service_type"`
-	Username    string `json:"username"`
-	DbUser      string `json:"dbuser"`
-}
-
 func main() {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -64,10 +55,6 @@ func main() {
 	}
 }
 
-// VaultClient() returns a configured and authenticated Vault client object. If
-// the client does not yet exist, it is created and authenticated. If it does
-// exist but the token is expired or near expiration, the token will be renewed
-// if possible, or a new token will be acquired.
 func VaultClient() (*vaultApi.Client, error) {
 
 	expirationWindow = time.Duration(10) * time.Second
